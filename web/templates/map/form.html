@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: #333;
+
+        }
+        table{
+            align-content:center ;
+
+        }
+        #container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            color: white;
+        }
+
+    </style>
+</head>
+<body >
+<div id="container"></div>
+<div style="position:fixed;left:50px;top:50px;"> <nav >
+    <a href="/index/">首页</a>
+    <a href="/heat/">热力图</a>
+    <a href="/scatter/">散点图</a>
+    <a href="/histogram/">柱状图</a>
+    <a href="/form/">基本信息表</a>    
+</nav></div>
+    
+<script src="/static/js/jquery.min.js"></script>
+<script>    
+    $.getJSON("/static/new/bbb.json", "", function(data) {
+        //each循环 使用$.each方法遍历返回的数据date
+        var srs = '';
+        srs += '<table border="1" style=" margin-left:200px;  margin-top:100px;  cellspacing="0">';
+        srs += '<thead ><tr ><th width="180px">名称</th><th width="50px">级别</th><th width="50px">价钱</th><th width="50px">销量</th><th width="50px">热度</th><th width="80px">时间</th><th width="350px">地址</th></tr></thead><tbody>';
+        $.each(data.data, function(i, item) {
+            srs += '<tr width="80px"><td width="80px">'+item.name+'</td><td>' + item.level +'</td><td>'+item.price +'</td><td>' +item.soldnum+'</td><td>' + item.hot +'</td><td>'+item.time +'</td><td>' + item.address +'</td></tr>';
+
+        });
+        $("#container").append(srs);
+    });
+</script>
+</body>
+</html>
